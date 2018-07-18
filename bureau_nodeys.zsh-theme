@@ -2,19 +2,33 @@
 
 ### NVM
 
-ZSH_THEME_NVM_PROMPT_PREFIX="%B⬡%b "
+#ZSH_THEME_NVM_PROMPT_PREFIX="%B⬡%b "
+ZSH_THEME_NVM_PROMPT_PREFIX="%{$fg[green]%}⬢ "
 ZSH_THEME_NVM_PROMPT_SUFFIX=""
 
 ### Git [±master ▾●]
 
-ZSH_THEME_GIT_PROMPT_PREFIX="[%{$fg_bold[green]%}±%{$reset_color%}%{$fg_bold[white]%}"
-ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}]"
-ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg_bold[green]%}✓%{$reset_color%}"
-ZSH_THEME_GIT_PROMPT_AHEAD="%{$fg[cyan]%}▴%{$reset_color%}"
-ZSH_THEME_GIT_PROMPT_BEHIND="%{$fg[magenta]%}▾%{$reset_color%}"
-ZSH_THEME_GIT_PROMPT_STAGED="%{$fg_bold[green]%}●%{$reset_color%}"
-ZSH_THEME_GIT_PROMPT_UNSTAGED="%{$fg_bold[yellow]%}●%{$reset_color%}"
-ZSH_THEME_GIT_PROMPT_UNTRACKED="%{$fg_bold[red]%}●%{$reset_color%}"
+#ZSH_THEME_GIT_PROMPT_PREFIX="[%{$fg_bold[green]%}±%{$reset_color%}%{$fg_bold[white]%}"
+#ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}]"
+#ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg_bold[green]%}✓%{$reset_color%}"
+#ZSH_THEME_GIT_PROMPT_AHEAD="%{$fg[cyan]%}▴%{$reset_color%}"
+#ZSH_THEME_GIT_PROMPT_BEHIND="%{$fg[magenta]%}▾%{$reset_color%}"
+#ZSH_THEME_GIT_PROMPT_STAGED="%{$fg_bold[green]%}●%{$reset_color%}"
+#ZSH_THEME_GIT_PROMPT_UNSTAGED="%{$fg_bold[yellow]%}●%{$reset_color%}"
+#ZSH_THEME_GIT_PROMPT_UNTRACKED="%{$fg_bold[red]%}●%{$reset_color%}"
+
+# VCS. - from Nodeys
+YS_VCS_PROMPT_PREFIX1="%{$fg[white]%}on%{$reset_color%} "
+YS_VCS_PROMPT_PREFIX2=":%{$fg[cyan]%}"
+YS_VCS_PROMPT_SUFFIX="%{$reset_color%}"
+YS_VCS_PROMPT_DIRTY=" %{$fg[red]%}x"
+YS_VCS_PROMPT_CLEAN=" %{$fg[green]%}o"
+# Git info. - from Nodeys
+local _GIT_INFO='$(git_prompt_info)'
+ZSH_THEME_GIT_PROMPT_PREFIX="${YS_VCS_PROMPT_PREFIX1}git${YS_VCS_PROMPT_PREFIX2}"
+ZSH_THEME_GIT_PROMPT_SUFFIX="$YS_VCS_PROMPT_SUFFIX"
+ZSH_THEME_GIT_PROMPT_DIRTY="$YS_VCS_PROMPT_DIRTY"
+ZSH_THEME_GIT_PROMPT_CLEAN="$YS_VCS_PROMPT_CLEAN"
 
 bureau_git_branch () {
   ref=$(command git symbolic-ref HEAD 2> /dev/null) || \
@@ -98,7 +112,7 @@ get_space () {
   local LENGTH=${#${(S%%)STR//$~zero/}}
   local SPACES=""
   (( LENGTH = ${COLUMNS} - $LENGTH - 1))
-
+ 
   for i in {0..$LENGTH}
     do
       SPACES="$SPACES "
@@ -107,7 +121,8 @@ get_space () {
   echo $SPACES
 }
 
-_1LEFT="$_USERNAME $_PATH"
+#_1LEFT="$_USERNAME $_PATH $_GIT_INFO"
+_1LEFT="$_USERNAME $_PATH "
 _1RIGHT="[%*] "
 
 bureau_precmd () {
@@ -120,6 +135,7 @@ setopt prompt_subst
 #PROMPT='> $_LIBERTY '
 PROMPT='$_LIBERTY '
 RPROMPT='$(nvm_prompt_info) $(bureau_git_prompt)'
+#RPROMPT='$(nvm_prompt_info)'
 
 autoload -U add-zsh-hook
 add-zsh-hook precmd bureau_precmd
