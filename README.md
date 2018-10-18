@@ -18,3 +18,13 @@ cp -r ~/.vimrc ~/.vimrc_backup
 # inatall the plugins
 ./install.sh
 ```
+
+- etslabs/python-vimrc
+
+https://github.com/ets-labs/python-vimrc
+
+```bash
+sudo apt install build-essential cmake python3-dev
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ets-labs/python-vimrc/master/setup.sh)"
+python3 ~/.vim/bundle/YouCompleteMe/install.py --clang-completer --go-completer --java-completer
+```
