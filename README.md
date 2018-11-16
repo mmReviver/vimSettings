@@ -28,3 +28,13 @@ sudo apt install build-essential cmake python3-dev
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ets-labs/python-vimrc/master/setup.sh)"
 python3 ~/.vim/bundle/YouCompleteMe/install.py --clang-completer --go-completer --java-completer
 ```
+
+- SpaceVim
+
+https://spacevim.org
+
+https://github.com/SpaceVim/SpaceVim
+
+```bash
+curl -sLf https://spacevim.org/install.sh | bash
+```
